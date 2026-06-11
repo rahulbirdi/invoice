@@ -1,31 +1,138 @@
+import mongoose from "mongoose";
 
-    //Business info
-    fromBusinessName: { type: String, default: "" },
-    fromEmail: { type: String, default: "" },
-    fromAddress: { type: String, default: "" },
-    fromPhone: { type: String, default: "" },
-    fromGst: { type: String, default: "" },
+const invoiceSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true
+  }
+    description: {
+    type: String,
+    required: true
+  },
+  qty: {
+    type: Number,
+    required: true,
+    default: 1
+  },
+  unitPrice: {
+    type: Number,
+    required: true,
+    default: 0
+  }
+},
+  {
+    _id: false
+  }
+);
 
-    // Client info
-    client: {
-      name: { type: String, default: "" },
-      email: { type: String, default: "" },
-      address: { type: String, default: "" },
-      phone: { type: String, default: "" },
-    },
+//the invoice schema
 
-    currency: { type: String, default: "INR" },
-    status: { type: String, enum: ["draft", "unpaid", "paid", "overdue"], default: "draft" },
+const invoiceSchema = new mongoose.Schema({
+  owner: {
+    type: String;
+    required: true,
+    index: true
+  },//clerk id
 
-    logoDataUrl: { type: String, default: null },
-    stampDataUrl: { type: String, default: null },
-    signatureDataUrl: { type: String, default: null },
+  invoiceNumber: {
+    type: String,
+    required: true,
+    index: true
+  },//invoice number
+  
+  issueDate: {
+    type: Date,
+    required: true
+  },//issue date
 
-    signatureName: { type: String, default: "" },
-    signatureTitle: { type: String, default: "" },
+  dueDate: {
+    type: Date,
+    default: ""
+  },//due date
 
-    taxPercent: { type: Number, default: 18 },
 
-    subtotal: { type: Number, default: 0 },
-    tax: { type: Number, default: 0 },
-    total: { type: Number, default: 0 },
+  //for bussiness info
+  fromBusinessName: { type: String, default: "" },
+  fromEmail: { type: String, default: "" },
+  fromAddress: { type: String, default: "" },
+  fromPhone: { type: String, default: "" },
+  fromGst: { type: String, default: "" },
+
+
+  //client info
+  client: {
+  name: { type: String, default: "" },
+  email: { type: String, default: "" },
+  address: { type: String, default: "" },
+  phone: { type: String, default: "" },
+},
+  
+  
+currency: { type: String, default: "INR" },
+status: { type: String, enum: ["draft", "unpaid", "paid", "overdue"], default: "draft" },
+
+//for assests
+logoDataUrl: { type: String, default: null },
+stampDataUrl: { type: String, default: null },
+signatureDataUrl: { type: String, default: null },
+
+signatureName: { type: String, default: "" },
+signatureTitle: { type: String, default: "" },
+
+taxPercent: { type: Number, default: 18 },
+
+subtotal: { type: Number, default: 0 },
+tax: { type: Number, default: 0 },
+total: { type: Number, default: 0 },
+},
+ {
+  timestamps: true
+ });
+
+ const Invoice = mongoose.models.Invoice || mongoose.model("Invoice", invoiceSchema);
+
+ export default Invoice;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //Business info
+// fromBusinessName: { type: String, default: "" },
+// fromEmail: { type: String, default: "" },
+// fromAddress: { type: String, default: "" },
+// fromPhone: { type: String, default: "" },
+// fromGst: { type: String, default: "" },
+
+// // Client info
+// client: {
+//   name: { type: String, default: "" },
+//   email: { type: String, default: "" },
+//   address: { type: String, default: "" },
+//   phone: { type: String, default: "" },
+// },
+
+// currency: { type: String, default: "INR" },
+// status: { type: String, enum: ["draft", "unpaid", "paid", "overdue"], default: "draft" },
+
+// logoDataUrl: { type: String, default: null },
+// stampDataUrl: { type: String, default: null },
+// signatureDataUrl: { type: String, default: null },
+
+// signatureName: { type: String, default: "" },
+// signatureTitle: { type: String, default: "" },
+
+// taxPercent: { type: Number, default: 18 },
+
+// subtotal: { type: Number, default: 0 },
+// tax: { type: Number, default: 0 },
+// total: { type: Number, default: 0 },

@@ -1,1 +1,2 @@
-# AI invoice website
+# AI invoice app
+

@@ -1,2 +1,2 @@
-# AI invoice web application 
+# AI invoice web app
 
